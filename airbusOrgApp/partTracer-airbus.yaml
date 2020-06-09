@@ -1,0 +1,76 @@
+version: "1.0"
+
+channels: 
+  mychannel: 
+    orderers: 
+      - orderer.parttracer.com
+    peers: 
+      peer0.general.parttracer.com:
+        endorsingPeer: true
+        chaincodeQuery: false
+        ledgerQuery: false
+        eventSource: false
+      peer0.airbus.parttracer.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+name: test
+orderers: 
+  orderer.parttracer.com: 
+    grpcOptions: 
+      ssl-target-name-override: orderer.parttracer.com
+    tlsCACerts: 
+      path: ../organizations/regulatorOrganizations/parttracer.com/orderers/orderer.parttracer.com/tls/tlscacerts/tls-localhost-9054-ca-regulator.pem
+    url: "grpcs://localhost:7050"
+organizations: 
+  general: 
+    mspid: GeneralMSP
+    peers: 
+      - peer0.general.parttracer.com
+  airbus: 
+    mspid: AirbusMSP
+    peers: 
+      - peer0.airbus.parttracer.com
+    certificateAuthorities:
+      - ca-airbus
+
+peers: 
+  peer0.general.parttracer.com: 
+    grpcOptions: 
+      ssl-target-name-override: peer0.general.parttracer.com
+    tlsCACerts: 
+      path: ../organizations/peerOrganizations/general.parttracer.com/peers/peer0.general.parttracer.com/tls/tlscacerts/tls-localhost-7054-ca-general.pem
+    url: "grpcs://localhost:7051"
+  peer0.airbus.parttracer.com: 
+    grpcOptions: 
+      ssl-target-name-override: peer0.airbus.parttracer.com
+    tlsCACerts: 
+      path: ../organizations/peerOrganizations/airbus.parttracer.com/peers/peer0.airbus.parttracer.com/tls/tlscacerts/tls-localhost-8054-ca-airbus.pem
+    url: "grpcs://localhost:9051"
+
+certificateAuthorities:
+  #
+  # [Required]. Airbus CA
+  #
+  ca-airbus:
+    #
+    # [Required]. CA IP address
+    #
+    url: http://localhost:8054
+    #
+    # [Optional]. HTTP connection properties used for communication
+    #
+    httpOptions:
+      verify: false
+    #
+    # [Optional]. Fabric-CA supports Certificate Signing Requests (CSRs). A
+    # registrar is needed to enroll new users.
+    #
+    registrar:
+      - enrollId: airbusAdmin
+        enrollSecret: airbusAdminpw
+    #
+    # [Optional]. The name of the CA.
+    #
+    caName: ca-airbus

@@ -1,0 +1,28 @@
+# node_modules
+**/node_modules/
+# wallets
+**/identity/
+**/credstore/
+# certificates,keys
+organizations/fabric-ca/regulatorOrg/msp/
+organizations/fabric-ca/regulatorOrg/*.pem
+organizations/fabric-ca/regulatorOrg/*.db
+organizations/fabric-ca/regulatorOrg/IssuerPublicKey
+organizations/fabric-ca/regulatorOrg/IssuerRevocationPublicKey
+organizations/fabric-ca/general/msp/
+organizations/fabric-ca/general/*.pem
+organizations/fabric-ca/general/*.db
+organizations/fabric-ca/general/IssuerPublicKey
+organizations/fabric-ca/general/IssuerRevocationPublicKey
+organizations/fabric-ca/airbus/mps/
+organizations/fabric-ca/airbus/*.pem
+organizations/fabric-ca/airbus/*.db
+organizations/fabric-ca/airbus/IssuerPublicKey
+organizations/fabric-ca/airbus/IssuerRevocationPublicKey
+organizations/peerOrganizations
+organizations/regulatorOrganizations
+# artifacts
+system-genesis-block/
+channel-artifacts/
+#logfile
+log.txt

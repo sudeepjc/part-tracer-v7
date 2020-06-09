@@ -1,0 +1,59 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+networks:
+  test:
+
+services:
+
+  ca_general:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-general
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_PORT=7054
+    ports:
+      - "7054:7054"
+    command: sh -c 'fabric-ca-server start -b generalAdmin:generalAdminpw -d'
+    volumes:
+      - ../organizations/fabric-ca/general:/etc/hyperledger/fabric-ca-server
+    container_name: ca_general
+    networks:
+      - test
+
+  ca_airbus:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-airbus
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_PORT=8054
+    ports:
+      - "8054:8054"
+    command: sh -c 'fabric-ca-server start -b airbusAdmin:airbusAdminpw -d'
+    volumes:
+      - ../organizations/fabric-ca/airbus:/etc/hyperledger/fabric-ca-server
+    container_name: ca_airbus
+    networks:
+      - test
+
+  ca_regulator:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-regulator
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_PORT=9054
+    ports:
+      - "9054:9054"
+    command: sh -c 'fabric-ca-server start -b regulatorAdmin:regulatorAdminpw -d'
+    volumes:
+      - ../organizations/fabric-ca/regulatorOrg:/etc/hyperledger/fabric-ca-server
+    container_name: ca_regulator
+    networks:
+      - test

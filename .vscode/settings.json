@@ -1,0 +1,10 @@
+{
+    "git.ignoreLimitWarning": true,
+    "editor.fontSize": 18,
+    "editor.tabSize": 2,
+    "editor.wordWrap": "on",
+    "search.exclude": {
+        "**/node_modules": false,
+        "**/vendor": true
+    }
+}
